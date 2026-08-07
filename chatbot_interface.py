@@ -3,6 +3,9 @@ from chatbot import Chatbot
 from classifier import EmotionClassifier
 from sentence_transformers import SentenceTransformer
 from retriever import Retriever
+from transformers.utils import logging as hf_logging
+
+hf_logging.disable_progress_bar()
 
 logging.basicConfig(filename="logs/chatbot_log.log",
                     format='%(asctime)s %(levelname)s: %(message)s')
@@ -22,7 +25,7 @@ You can type 'exit' to leave the chat. \nUser:''')
     while prompt != 'exit':
         emotion_classification = emotion_classifier.classify_text(prompt)
 
-        embeddings = model.encode(prompt)
+        embeddings = model.encode(prompt, show_progress_bar=False)
 
         retrieved_chunks = retriever.retrieve_top_3_chunks(embeddings)
 
