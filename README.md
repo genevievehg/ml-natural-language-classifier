@@ -50,11 +50,14 @@ To use the Chatbot, run:
 
 Here, the user can interact with the LLM and receive more meaningful responses supported by additional context.
 
-## Limitations
+## Limitations & Improvements
 
 There are several areas for improvement:
 - Different LLM models could be explored to generate improved responses. These could not be pursued due to hardware restrictions.
 - Different chunking strategies could be explored. A concious decision was made to separate chunks by new line here due to the limited size of the facts themselves.
+- More support for failure cases is required.
+- Data cleansing was not performed.
+- The bot's conversation history could be stored to improve responses.
 
 ## Dataset
 
