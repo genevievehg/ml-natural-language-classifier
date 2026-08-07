@@ -2,12 +2,11 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 class Chatbot:
-    def __init__(self, system_prompt):
+    def __init__(self):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model_name = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
         self.model = AutoModelForCausalLM.from_pretrained(self.model_name).to(self.device)
-        self.system_prompt = system_prompt
 
     def encode_prompt(self, prompt: str):
         return self.tokenizer(prompt, return_tensors="pt").to(self.device)
@@ -15,9 +14,16 @@ class Chatbot:
     def decode_reply(self, reply_ids: list[int]) -> str:
         return self.tokenizer.decode(reply_ids[0], clean_up_tokenization_spaces=False, skip_special_tokens=True)
 
-    def generate_reply(self, prompt: str) -> str:
-
-        appended_prompt = "\n<|user|>\n" + prompt + "\n<|end|>\n<|assistant|>\n"
+    def generate_reply(self, prompt: str, emotion_classification: str, retrieved_chunks: str) -> str:
+        system_prompt = f'''<|system|>\nYou are a helpful assistant that explains the result of a provided emotion classification.
+        Reply to the user in a friendly and informative way using the provided additional context in your answer.
+        Classification:
+        {emotion_classification}
+        Context:
+        {retrieved_chunks}
+        <|end|>\n'''
+        
+        appended_prompt = system_prompt + "\n<|user|>\n" + prompt + "\n<|end|>\n<|assistant|>\n"
         encoded_prompt = self.encode_prompt(appended_prompt)
 
         encoded_prompt = self.encode_prompt(appended_prompt)
