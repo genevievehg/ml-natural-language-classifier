@@ -24,7 +24,7 @@ class Retriever:
 
     def generate_embeddings(self, chunks):
         model = SentenceTransformer('all-MiniLM-L6-v2')
-        embeddings = model.encode(chunks)
+        embeddings = model.encode(chunks, show_progress_bar=False)
         tuple = zip(embeddings, chunks)
         self.tuple = tuple
         with open('data/models/embeddings.pkl', 'wb') as f:
