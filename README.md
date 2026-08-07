@@ -6,9 +6,9 @@ This project builds a Chatbot using text classification, retrieval-augmented gen
 
 User input is processed as follows:
 1. Logistic Regression is used to identify the emotion in the user message.
-2. Sentence transformers are used to convert text to numerical vector repressentations.
+2. Sentence transformers are used to convert text to numerical vector representations.
 3. Cosine similarity is used to retrieve the most relevant contextual information.
-4. The prompt for the LLM is contructed from the user's message, the classification result, and the additional context.
+4. The prompt for the LLM is constructed from the user's message, the classification result, and the additional context.
 5. The TinyLlama model is used to generate a response.
 
 
@@ -54,7 +54,7 @@ Here, the user can interact with the LLM and receive more meaningful responses s
 
 There are several areas for improvement:
 - Different LLM models could be explored to generate improved responses. These could not be pursued due to hardware restrictions.
-- Different chunking strategies could be explored. A concious decision was made to separate chunks by new line here due to the limited size of the facts themselves.
+- Different chunking strategies could be explored. A conscious decision was made to separate chunks by new line here due to the limited size of the facts themselves.
 - More support for failure cases is required.
 - Data cleansing was not performed.
 - The bot's conversation history could be stored to improve responses.
